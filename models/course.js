@@ -3,28 +3,28 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class Users extends Model {}
-  Users.init({
-    firstName: {
+  class Course extends Model {}
+  Course.init({
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    emailAddress: {
-      type: DataTypes.STRING,
+    description: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
-    password: {
+    estimatedTime: {
       type: DataTypes.STRING,  
       allowNull: false,
     },
+    materialsNeeded: {
+        type: DataTypes.STRING,  
+        allowNull: false,
+    },
   }, { sequelize });
 
-  Users.associate = (models) => {
-    Users.belongsTo(models.Course, { 
+  Course.associate = (models) => {
+    Course.hasMany(models.User, { 
       foreignKey: {
         fieldName: 'userId',
         allowNull: false,
@@ -32,5 +32,5 @@ module.exports = (sequelize) => {
     });
   };
 
-  return Users;
+  return Course;
 };

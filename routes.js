@@ -1,15 +1,15 @@
 'use strict';
 
 const express = require('express');
-const Users = require('./models').Users;
-console.log(Users)
+const User = require('./models').User;
+const Course = require('./models').Course;
 
 // Construct a router instance.
 const router = express.Router();
 
 // Route that returns a list of users.
 router.get('/users', async(req, res) => {
-  const users = await Users.findAll();
+  const users = await User.findAll()
   res.json(users);
 });
 
