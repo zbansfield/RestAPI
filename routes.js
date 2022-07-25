@@ -66,24 +66,6 @@ router.get('/courses', asyncHandler(async(req, res) => {
 
 }));
 
-// Route that returns specific course including User associated with that course
-router.get('/courses/:id', asyncHandler(async(req, res) => {
-
-  // Get course, and include the model associations
-  const course = await Course.findByPk(req.params.id, {
-    include: [
-      {
-        model: User,
-        as: "user",
-      }
-    ]
-  })  
-
-  res.status(200);
-  res.json(course);
-
-}));
-
 // Route that creates new course 
 router.post('/courses', asyncHandler(async(req, res) => {
 
@@ -102,6 +84,24 @@ router.post('/courses', asyncHandler(async(req, res) => {
     }
   }
   
+}));
+
+// Route that returns specific course including User associated with that course
+router.get('/courses/:id', asyncHandler(async(req, res) => {
+
+  // Get course, and include the model associations
+  const course = await Course.findByPk(req.params.id, {
+    include: [
+      {
+        model: User,
+        as: "user",
+      }
+    ]
+  })  
+
+  res.status(200);
+  res.json(course);
+
 }));
 
 // Route that updates the corresponding course
