@@ -33,6 +33,9 @@ module.exports = (sequelize) => {
     emailAddress: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        msg: 'The email you entered is already in use.'
+      },
       validate: {
         notNull: {
           msg: "An email is required."
@@ -60,14 +63,15 @@ module.exports = (sequelize) => {
     },
   }, { sequelize });
 
-  // User.associate = (models) => {
-  //   User.belongsTo(models.Course, { 
-  //     foreignKey: {
-  //       fieldName: 'userId',
-  //       // allowNull: false,
-  //     } 
-  //   });
-  // };
+  User.associate = (models) => {
+    User.hasMany(models.Course, { 
+      foreignKey: {
+        as: "user", 
+        fieldName: 'userId',
+        // allowNull: false,
+      } 
+    });
+  };
 
   return User;
 };
