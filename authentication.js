@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('./models').User;
 
 // Middleware to authenticate the request using Basic Authentication.
+// From Treehouse course "Rest API Authentication with Express"
 exports.authenticateUser = async (req, res, next) => {
     let message; // store the message to display
 
@@ -23,7 +24,7 @@ exports.authenticateUser = async (req, res, next) => {
             // Store the user on the Request object.
             req.currentUser = user;
             } else {
-                message = `Authentication failure for email address: ${user.emailAddress}`;
+                message = `Authentication failed for email address: ${user.emailAddress}`;
             }
         } else {
             message = `User not found for email address: ${credentials.name}`;
