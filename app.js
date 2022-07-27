@@ -1,17 +1,5 @@
 'use strict';
 
-/*
-
-// CHANGE PORT TO 5000 BEFORE SUBMITTING PROJECT
-// CHANGE PORT TO 5000
-// CHANGE PORT TO 5000
-// CHANGE PORT TO 5000
-// CHANGE PORT TO 5000
-// CHANGE PORT TO 5000
-
-
-*/
-
 // load modules
 const express = require('express');
 const morgan = require('morgan');
@@ -70,7 +58,7 @@ app.use((err, req, res, next) => {
 })();
 
 // set our port
-app.set('port', process.env.PORT || 3000); 
+app.set('port', process.env.PORT || 5000); 
 
 // Sequelize model synchronization, then start listening on our port.
 sequelize.sync()
