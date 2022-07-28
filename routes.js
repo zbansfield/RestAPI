@@ -34,8 +34,8 @@ router.post('/users', asyncHandler(async(req, res) => {
   try {
     await User.create(req.body);
 
-    res.status(201).json({ "message": "Account successfully created!" });
-    res.redirect('/');
+    res.status(201).json();
+    res.location('/');
   } catch (error) {
     // If there is a sequelize error 
     if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
@@ -67,12 +67,12 @@ router.get('/courses', asyncHandler(async(req, res) => {
 }));
 
 // Route that creates new course 
-router.post('/courses', asyncHandler(async(req, res) => {
+router.post('/courses', authenticateUser, asyncHandler(async(req, res) => {
 
   try {
     const course = await Course.create(req.body);
 
-    res.status(201);
+    res.status(201).json();
     res.location(`/courses/${course.id}`);
   } catch (error) {
     // If there is a sequelize error 
@@ -105,15 +105,14 @@ router.get('/courses/:id', asyncHandler(async(req, res) => {
 }));
 
 // Route that updates the corresponding course
-router.put('/courses/:id', asyncHandler(async(req, res) => {
+router.put('/courses/:id', authenticateUser, asyncHandler(async(req, res) => {
 
   try {
     const course = await Course.findByPk(req.params.id)
 
     await course.update(req.body);
   
-    res.status(204);
-    res.json({});
+    res.status(204).json();
   } catch (error) {
     // If there is a sequelize error 
     if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
@@ -127,15 +126,14 @@ router.put('/courses/:id', asyncHandler(async(req, res) => {
 }));
 
 // Route that deletes the corresponding course 
-router.delete('/courses/:id', asyncHandler(async(req, res) => {
+router.delete('/courses/:id', authenticateUser, asyncHandler(async(req, res) => {
 
   const course = await Course.findByPk(req.params.id)
 
   if (course) {
     await course.destroy();
   
-    res.status(204);
-    res.json({});
+    res.status(204).json();
   } else {
     res.status(404).json({
       message: 'Route Not Found',
