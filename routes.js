@@ -34,8 +34,7 @@ router.post('/users', asyncHandler(async(req, res) => {
   try {
     await User.create(req.body);
 
-    res.status(201).json();
-    res.location('/');
+    res.status(201).location("/").end();
   } catch (error) {
     // If there is a sequelize error 
     if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
